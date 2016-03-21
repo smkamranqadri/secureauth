@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    button(onClick="getProduct()") Get Prodcut
+    script(type="text/javascript").
+        user = window.localStorage.user;
+        alert(user);
+        function getProduct() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( 'GET', '/api/v1/product', false);
+            xmlHttp.setRequestHeader("x-access-token", user.token);
+            xmlHttp.setRequestHeader("x-key", user.user);
+            xmlHttp.setRequestHeader("Content-type", "application/application/json");
+            //- xmlHttp.send("username=" + uname + "&password=" + pword + "");
+            xmlHttp.send();
+            alert(xmlHttp.responseText);
+            //- if (xmlHttp.responseText.status) {
+            //-     console.log(xmlHttp.responseText);
+            //- } else {
+            //-     window.localStorage.setItem('user', xmlHttp.responseText)
+            //- }
+            //- window.location.href = "/";    
+        };
+            /*
+            config.headers['X-Access-Token'] = $window.sessionStorage.token;
+            config.headers['X-Key'] = $window.sessionStorage.user;
+            config.headers['Content-Type'] = "application/json";
+            */

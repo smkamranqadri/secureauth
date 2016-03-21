@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= Login
+  form(action="javascript:login();")
+    input(type="text" name="username" id="uname")
+    input(type="password" name="password" id="pword")
+    input(type="submit" value="submit")
+    script(type="text/javascript").
+        function login() {
+            uname = document.getElementById('uname').value;
+            pword = document.getElementById('pword').value;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( 'POST', '/login', false);
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.send("username=" + uname + "&password=" + pword + "");
+            if (xmlHttp.responseText.status) {
+                console.log(xmlHttp.responseText);
+            } else {
+                window.localStorage.setItem('user', xmlHttp.responseText)
+            }
+            window.location.href = "/";
+        };
